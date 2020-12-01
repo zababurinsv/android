@@ -13,7 +13,6 @@
     <meta property="og:image" content="https://i.imgur.com/pSrPUkJ.jpg"/>
     <meta property="og:image:width" content="537"/>
     <meta property="og:image:height" content="240"/>
-    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <style>
         @font-face {
             font-family: 'GothamPro';
@@ -37,15 +36,30 @@
 </head>
 <body>
 </body>
-<script>
-    window.onload = () =>{
-    eruda.init();    
-    }
-</script>
-<style>
-    @import url("/css/variables.css");
-    body {
-        display: grid;
-    }
-</style>
+<script type="text/javascript">
+    // Convenience functions to setup the file system
+    const fsSetup = path => {
+        FS.mkdir(path);
+        FS.mount(IDBFS, {}, path);
+    };
+    const fsLoad = () => FS.syncfs(true,  err => console.warn(err));
+    const fsSave = () => FS.syncfs(false, err => console.warn(err));
+    
+    // Save changes to memory when leave the page
+    window.onbeforeunload = () => fsSave();
+    
+    // Setup Module
+    var Module = {
+        noInitialRun: true,
+        preInit: () => {
+            // Create /myFile.txt (file.c looks for this file)
+            // FS.writeFile("/myFile.txt", "abc\ndef\nghi");
+    
+            // Load from memory
+          fsSetup("/data");
+          fsLoad();
+        }
+    };
+    </script>
+    <script src="/distrib/fs/afs.js"></script>
 </html>
