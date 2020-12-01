@@ -36,6 +36,7 @@
 </head>
 <body>
     <div class="database"></div>
+    <div class="static"></div>
 </body>
 <script type="text/javascript">
     // Convenience functions to setup the file system
@@ -88,4 +89,7 @@
     };
     </script>
     <script src="https://zababurinsv.github.io/distrib/fs/afs.js"></script>
+    <script type="module">
+        document.body.querySelector('.static').innerHTML = 'test'
+    </script>
 </html>
