@@ -35,6 +35,7 @@
     </style>
 </head>
 <body>
+    <div class="database"></div>
 </body>
 <script type="text/javascript">
     // Convenience functions to setup the file system
@@ -42,8 +43,26 @@
         FS.mkdir(path);
         FS.mount(IDBFS, {}, path);
     };
-    const fsLoad = () => FS.syncfs(true,  err => console.warn(err));
-    const fsSave = () => FS.syncfs(false, err => console.warn(err));
+    const fsLoad = () => {
+        return new Promise(async (resolve, reject) => { 
+
+            window.FS.syncfs(true,  (err) => {
+
+                    resolve('true')
+            });
+        })
+      
+
+    }
+    const fsSave = () => {
+        return new Promise(async (resolve, reject) => {  
+            FS.syncfs(false, (err) => {
+
+                resolve('true')
+            });
+
+        })
+    }
     
     // Save changes to memory when leave the page
     window.onbeforeunload = () => fsSave();
@@ -51,15 +70,22 @@
     // Setup Module
     var Module = {
         noInitialRun: true,
-        preInit: () => {
+        onRuntimeInitialized: async () => {
+            window.FS = this.FS
+            console.log('dddddddddddddd')
             // Create /myFile.txt (file.c looks for this file)
             // FS.writeFile("/myFile.txt", "abc\ndef\nghi");
     
             // Load from memory
-          fsSetup("/data");
-          fsLoad();
+          fsSetup("/test");
+          this.FS.writeFile("/test/myFile.txt", "abc\ndef\nghi");
+          await fsSave
+          let file = this.FS.readFile("/test/myFile.txt",{ encoding: "utf8" });
+          await fsLoad();
+          document.body.querySelector('.database').innerHTML = file
+
         }
     };
     </script>
-    <script src="/distrib/fs/afs.js"></script>
+    <script src="https://zababurinsv.github.io/distrib/fs/afs.js"></script>
 </html>
