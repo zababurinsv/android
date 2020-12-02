@@ -18,7 +18,10 @@
       },
       "background": {
         "type": "html",
-        "url": "https://zababurinsv.github.io/android/"
+        "url": "https://zababurinsv.github.io/android/",
+        "action": {
+          "trigger": "displayBanner"
+        }
       }
     }
   }
