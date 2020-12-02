@@ -35,30 +35,25 @@
     </style>
 </head>
 <body>
-    <div class="database"></div>
-    <div class="static"></div>
-    <p><a href="dog.html">Собаки</a></p>
-    <p><a href="http://localhost:9876/markdown/">Ссылка</a></p>
+<div class="database"></div>
+<p><a href="http://localhost:9876/markdown/">Документация</a></p>
 </body>
 <script type="text/javascript">
-    // Convenience functions to setup the file system
     const fsSetup = path => {
         FS.mkdir(path);
         FS.mount(IDBFS, {}, path);
     };
     const fsLoad = () => {
-        return new Promise(async (resolve, reject) => { 
+        return new Promise(async (resolve, reject) => {
 
             window.FS.syncfs(true,  (err) => {
 
                     resolve('true')
             });
         })
-      
-
     }
     const fsSave = () => {
-        return new Promise(async (resolve, reject) => {  
+        return new Promise(async (resolve, reject) => {
             FS.syncfs(false, (err) => {
 
                 resolve('true')
@@ -66,32 +61,22 @@
 
         })
     }
-    
-    // Save changes to memory when leave the page
     window.onbeforeunload = () => fsSave();
-    
-    // Setup Module
     var Module = {
         noInitialRun: true,
         onRuntimeInitialized: async () => {
-            window.FS = this.FS
-            console.log('dddddddddddddd')
-            // Create /myFile.txt (file.c looks for this file)
-            // FS.writeFile("/myFile.txt", "abc\ndef\nghi");
-    
-            // Load from memory
-          fsSetup("/test");
-          this.FS.writeFile("/test/myFile.txt", "abc\ndef\nghi");
+          window.FS = this.FS
+          fsSetup("/data");
+          this.FS.writeFile("/data/index.txt", "index.html");
           await fsSave
-          let file = this.FS.readFile("/test/myFile.txt",{ encoding: "utf8" });
+          let file = this.FS.readFile("/data/index.txt",{ encoding: "utf8" });
           await fsLoad();
           document.body.querySelector('.database').innerHTML = file
-
         }
     };
     </script>
-    <script src="https://zababurinsv.github.io/distrib/fs/afs.js"></script>
-    <script type="module">
-        document.body.querySelector('.static').innerHTML = 'test'
-    </script>
+<script src="https://zababurinsv.github.io/distrib/fs/afs.js"></script>
+<script type="module">
+        // document.body.querySelector('.static').innerHTML = 'test'
+</script>
 </html>
