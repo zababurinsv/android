@@ -37,6 +37,7 @@
           await fsSave
           let file = this.FS.readFile("/apk/index.txt",{ encoding: "utf8" });
           await fsLoad();
+          console.log('file', file)
           document.body.querySelector('.database').innerHTML = file
         }
     };
