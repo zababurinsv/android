@@ -62,13 +62,13 @@
               "url": "https://jasonette.github.io/Jasonpedia/view/footer/tabs.json"
             },
             {
-              "image": "https://github.com/zababurinsv/android/blob/main/docs/apps/footer-demo/info.png",
+              "image": "https://raw.githubusercontent.com/zababurinsv/android/main/docs/apps/footer-demo/info.png",
               "text": "Info",
               "badge": "2",
               "url": "https://jasonette.github.io/Jasonpedia/view/footer/tabs.json"
             },
             {
-              "image": "https://github.com/zababurinsv/android/blob/main/docs/apps/footer-demo/apps.png",
+              "image": "https://raw.githubusercontent.com/zababurinsv/android/main/docs/apps/footer-demo/apps.png",
               "text": "Collection",
               "url": "https://jasonette.github.io/Jasonpedia/view/footer/tabs.json"
             }
