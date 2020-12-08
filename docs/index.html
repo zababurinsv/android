@@ -32,10 +32,10 @@
         noInitialRun: true,
         onRuntimeInitialized: async () => {
           window.FS = this.FS
-          fsSetup("/data");
-          this.FS.writeFile("/data/index.txt", "index.html");
+          fsSetup("/apk");
+          this.FS.writeFile("/apk/index.txt", "index.html");
           await fsSave
-          let file = this.FS.readFile("/data/index.txt",{ encoding: "utf8" });
+          let file = this.FS.readFile("/apk/index.txt",{ encoding: "utf8" });
           await fsLoad();
           document.body.querySelector('.database').innerHTML = file
         }
