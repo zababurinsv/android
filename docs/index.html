@@ -1,4 +1,5 @@
 <html>
+<script src="/static/html/components/component_modules/eruda/eruda.js" defer></script>
 <body>
 <div class="static"></div>
 <div class="database"></div>
@@ -41,6 +42,10 @@
           document.body.querySelector('.database').innerHTML = file
         }
     };
+    window.onload = () => {
+
+        eruda.init();
+    }
 </script>
 <style>
     body {
