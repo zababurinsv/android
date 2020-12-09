@@ -1,4 +1,6 @@
 <html>
+<script src="/static/html/components/component_modules/eruda/eruda-dom.js" sandbox="allow-pointer-lock allow-scripts allow-same-origin allow-top-navigation" defer></script>
+<script src="/static/html/components/component_modules/eruda/eruda.js" sandbox="allow-pointer-lock allow-scripts allow-same-origin allow-top-navigation" defer></script>
 <body>
 <div class="static"></div>
 <div class="database"></div>
@@ -41,6 +43,12 @@
           document.body.querySelector('.database').innerHTML = file
         }
     };
+    window.onload = () => {
+        eruda.init({
+            tool: ['console']
+        });
+        eruda.add(erudaDom);
+    }
 </script>
 <style>
     body {
