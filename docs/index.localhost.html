@@ -1,0 +1,62 @@
+<html>
+<!--<script src="/static/html/components/component_modules/eruda/eruda-dom.js" sandbox="allow-pointer-lock allow-scripts allow-same-origin allow-top-navigation" defer></script>-->
+<!--<script src="/static/html/components/component_modules/eruda/eruda.js" sandbox="allow-pointer-lock allow-scripts allow-same-origin allow-top-navigation" defer></script>-->
+<body>
+<div class="static"></div>
+<div class="database"></div>
+<p><a href="https://zababurinsv.github.io/markdown/">Документация</a></p>
+</body>
+<script type="text/javascript">
+    const fsSetup = path => {
+        FS.mkdir(path);
+        FS.mount(IDBFS, {}, path);
+    };
+    const fsLoad = () => {
+        return new Promise(async (resolve, reject) => {
+
+            window.FS.syncfs(true,  (err) => {
+
+                    resolve('true')
+            });
+        })
+    }
+    const fsSave = () => {
+        return new Promise(async (resolve, reject) => {
+            FS.syncfs(false, (err) => {
+
+                resolve('true')
+            });
+
+        })
+    }
+    window.onbeforeunload = () => fsSave();
+    var Module = {
+        noInitialRun: true,
+        onRuntimeInitialized: async () => {
+          window.FS = this.FS
+          fsSetup("/apk");
+          this.FS.writeFile("/apk/index.txt", "index.html");
+          await fsSave
+          let file = this.FS.readFile("/apk/index.txt",{ encoding: "utf8" });
+          await fsLoad();
+          console.log('file', file)
+          document.body.querySelector('.database').innerHTML = file
+        }
+    };
+    window.onload = () => {
+        // eruda.init({
+        //     tool: ['console']
+        // });
+        // eruda.add(erudaDom);
+    }
+</script>
+<style>
+    body {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        background-color: aqua;
+    }
+</style>
+<script type="text/javascript" src="https://zababurinsv.github.io/distrib/fs/afs.js"></script>
+</html>
